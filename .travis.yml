@@ -2,10 +2,18 @@
 language: julia
 os:
   - linux
+    dist: trusty
   - osx
+addons:
+  apt:
+    packages:
+      - "python3"
+      - "python3-pip"
 julia:
   - 1.0
   - nightly
+before-install:
+  "alias pip=pip3"
 matrix:
   allow_failures:
     - julia: nightly
