@@ -21,7 +21,7 @@ Simply run
 ] add DFOLS
 ```
 
-**Note:** The build script assumes that `$(PyCall.pyprogramname) pip` is a valid command. This is automatically true on Windows and macOS, but needs to be verified on Linux (i.e., make sure it isn't `pip3`, or `python-pip3`, or something; or, just edit the `build.jl` of this package from source).
+**Note:** The build script assumes that `$(PyCall.pyprogramname) pip` is a valid command. This is automatically true on Windows and macOS, but needs to be verified on Linux (i.e., make sure it isn't `pip3`, or `python-pip3`, or something). You can do this by aliasing `pip=pip3` or setting up a symbolic link `pip -> pip3`
 
 ### Usage
 
