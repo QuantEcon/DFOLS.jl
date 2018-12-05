@@ -1,5 +1,5 @@
 using DFOLS
-using Test, LinearAlgebra
+using Test, LinearAlgebra, Random
 
 @testset "Vanilla Tests" begin
     # Rosenbrock
@@ -15,11 +15,11 @@ using Test, LinearAlgebra
         @test norm(residuals(sol)) < 1e-6
         @test abs(optimum(sol)) < 1e-10
         @test optimizer(sol)[1] ≈ 1.0
-        @test optimizer(sol)[2] ≈ 1.0 
+        @test optimizer(sol)[2] ≈ 1.0
     end
 end
 
-@testset "Advanced Tests" begin
+@testset "user_params Tests" begin
     rosenbrock = x -> [10. * (x[2]-x[1]^2), 1. - x[1]]
     x0 = [-1.2, 1.]
     # example with user_params dict
@@ -28,6 +28,31 @@ end
                                             "noise.quit_on_noise_level" => false)))
     # empty dict literal
     @test converged(solve(rosenbrock, x0, user_params = Dict()))
+end
+
+@testset "Stochastic Objective Tests" begin
+    Random.seed!(42)
+    σ = 0.01
+    μ = 1.
+    rosenbrock = x -> [10. * (x[2]-x[1]^2), 1. - x[1]]
+    rosenbrock_noisy = x -> rosenbrock(x) .* (μ .+ σ*randn(2))
+    x0 = [-1.2, 1.0]
+    soln = solve(rosenbrock_noisy, x0, objfun_has_noise=true)
+    soln_nonoise = solve(rosenbrock_noisy, x0)
+    @test converged(soln) # should see nf(soln) < nf(soln_nonoise)
+    @test converged(soln_nonoise)
+end
+
+@testset "Boxed Optimization Tests" begin
+    rosenbrock = x -> [10. * (x[2]-x[1]^2), 1. - x[1]]
+    x0 = [-1.2, 1.0]
+    bounds1 = ([-5., -5.], [5., 5,])
+    bounds2 = ([-5., -5.], nothing)
+    bounds3 = (nothing, [5., 5.])
+    @test converged(solve(rosenbrock, x0, bounds = bounds1))
+    @test converged(solve(rosenbrock, x0, bounds = bounds2))
+    @test converged(solve(rosenbrock, x0, bounds = bounds3))
+    @test converged(solve(rosenbrock, x0, bounds = nothing))
 end
 
 @testset "Julia Edge Cases" begin

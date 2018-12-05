@@ -4,6 +4,13 @@
 
 A light wrapper around the [DFO-LS](https://numericalalgorithmsgroup.github.io/dfols) (Derivative-Free Optimizer for Least-Squares Minimization) Python package written by the Numerical Algorithms Group at Oxford University. See here for [the paper](https://arxiv.org/abs/1804.00154).
 
+### TOC
+
+1. Installation
+2. Usage
+3. Constraints and Stochastic Objectives
+4. Advanced Usage
+
 **Note:** This package is GPL3 licensed, to comply with the underlying Python.
 
 ### Installation
@@ -69,9 +76,29 @@ function solve(objfun, x0::Array{TF, 1};
                 scaling_within_bounds = false) where {TF <: AbstractFloat, TI <: Integer}
 ```
 
+### Constraints Optimization and Stochastic Objectives
+
+You can impose constraints on the solution space
+
+```
+solve(rosenbrock, x0, bounds = ([-5., -5.], [5., 5.])) # two-sided box
+solve(rosenbrock, x0, bounds = ([-5., -5.], nothing)) # one-sided constraint
+```
+
+And note that the objective is stochastic
+
+```
+σ = 0.01
+μ = 1.
+rosenbrock_noisy = x -> rosenbrock(x) .* (μ .+ σ*randn(2))
+solve(rosenbrock_noisy, x0, objfun_has_noise=true)
+```
+
+**Note:** The solver will determine the stochasticity of the objective only by examining the `objfun_has_noise` flag, and not by examining the input.
+
 ### Advanced Usage
 
-The `user_params` should be a Julia dict (see the link above for valid (key, value) pairs). For example:
+The `user_params` should be a Julia dict (see [here](https://numericalalgorithmsgroup.github.io/dfols/build/html/advanced.html) for valid key, value pairs). For example:
 
 ```
 solve(rosenbrock, x0, user_params = Dict("init.random_initial_directions" => false,
