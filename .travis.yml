@@ -13,4 +13,4 @@ matrix:
 notifications:
   email: false
 before_install:
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then python -m pip || wget -qO- https://bootstrap.pypa.io/get-pip.py | python; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then python3 -m pip || wget -qO- https://bootstrap.pypa.io/get-pip.py | python3; fi
