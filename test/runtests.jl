@@ -20,6 +20,14 @@ using Test, LinearAlgebra
 end
 
 @testset "Tests with user_params Dicts" begin
+    rosenbrock = x -> [10. * (x[2]-x[1]^2), 1. - x[1]]
+    x0 = [-1.2, 1.]
+    # example with user_params dict
+    @test converged(solve(rosenbrock, x0, user_params = Dict("init.random_initial_directions" => false,
+                                            "model.abs_tol" => 1e-20,
+                                            "noise.quit_on_noise_level" => false)))
+    # empty dict literal
+    @test converged(solve(rosenbrock, x0, user_params = Dict()))
 end
 
 @testset "Julia Edge Cases" begin
