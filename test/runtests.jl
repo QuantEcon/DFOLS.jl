@@ -10,16 +10,16 @@ using Test, LinearAlgebra
                       [3.14159, π]
                     )
     for x0 in initial_values
-        sol = solve(rosenbrock, [-1.2, 1.])
+        sol = solve(rosenbrock, [-1.2, 1.], user_params = Dict("init.random_initial_directions" => false))
         @test converged(sol) && flag(sol) == 0
         @test norm(residuals(sol)) < 1e-6
         @test abs(optimum(sol)) < 1e-10
         @test optimizer(sol)[1] ≈ 1.0
-        @test optimizer(sol)[2] ≈ 1.0
+        @test optimizer(sol)[2] ≈ 1.0 
     end
 end
 
-@testset "Tests with user_params Dicts" begin
+@testset "Advanced Tests" begin
     rosenbrock = x -> [10. * (x[2]-x[1]^2), 1. - x[1]]
     x0 = [-1.2, 1.]
     # example with user_params dict
