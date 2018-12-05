@@ -76,7 +76,7 @@ function solve(objfun, x0::Array{TF, 1};
                 scaling_within_bounds = false) where {TF <: AbstractFloat, TI <: Integer}
 ```
 
-### Constraints Optimization and Stochastic Objectives
+### Constraints and Stochastic Objectives
 
 You can impose constraints on the solution space
 
