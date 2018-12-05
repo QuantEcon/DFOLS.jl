@@ -2,21 +2,15 @@
 language: julia
 os:
   - linux
-    dist: trusty
   - osx
-addons:
-  apt:
-    packages:
-      - "python3"
-      - "python3-pip"
 julia:
   - 1.0
   - nightly
-before-install:
-  "alias pip=pip3"
 matrix:
   allow_failures:
     - julia: nightly
   fast_finish: true
 notifications:
   email: false
+before_install:
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then "alias pip=pip3" ; fi
