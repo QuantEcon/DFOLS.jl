@@ -14,6 +14,8 @@ Simply run
 ] add DFOLS
 ```
 
+The build script assumes that `$(PyCall.pyprogramnam) pip` is a valid command.
+
 ### Usage
 
 We define a type `DFOLSResults` to store the solver output.
