@@ -83,6 +83,21 @@ nx(d::DFOLSResults) = d.nx
 flag(d::DFOLSResults) = d.flag
 msg(d::DFOLSResults) = d.msg
 
+# show()
+function Base.show(io::IO, d::DFOLSResults)
+    @printf io " * Results of Optimization Algorithm\n"
+    @printf io " * Solution: [%s]\n" join(optimizer(d), ",")
+    @printf io " * f(x) at Optimum: %f\n" optimum(d)
+    @printf io " * Convergence: %s\n" converged(d)
+    @printf io " * Exit Message: %s\n" msg(d)
+    @printf io " * Exit Flag: %s\n" flag(d)
+    @printf io " * Function Calls: %d\n" nf(d)
+    @printf io " * Solver Runs: %d\n" nruns(d)
+    @printf io " * Point Evaluations: %d\n" nx(d)
+    return
+end
+
+
 # Exports
 export solve, DFOLSResults, # key objects
         converged, optimizer, optimum, residuals, jacobian, nf, nruns, nx, flag, msg
