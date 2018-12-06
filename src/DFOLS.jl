@@ -36,7 +36,7 @@ function solve(objfun, x0::Array{TF, 1};
                 nsamples = nothing,
                 user_params = nothing, # see https://numericalalgorithmsgroup.github.io/dfols/build/html/advanced.html
                 objfun_has_noise = false,
-                scaling_within_bounds = false) where {TF <: AbstractFloat, TI <: Integer}
+                scaling_within_bounds = false) where {TF <: AbstractFloat}
 
     # grab solution from Python
     soln = dfols[:solve](objfun, x0,
