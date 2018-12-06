@@ -61,6 +61,6 @@ end
     @test converged(solve(rosenbrock, [-1.2, 1.], bounds = ([-Inf, -Inf], [Inf, Inf])))
     f = x -> [0., 0.]
     sol = solve(f, [1., 100.])
-    @test residuals(sol) isa Nothing # Nothing part of the Union{Nothing, Matrix{TF}}
+    @test jacobian(sol) isa Nothing # Nothing part of the Union{Nothing, Matrix{TF}}
     @test converged(sol) && optimizer(sol) == [1., 100.] # general handling of the immediate resolution
 end
