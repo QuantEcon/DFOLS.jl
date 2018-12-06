@@ -32,7 +32,7 @@ struct DFOLSResults{TI <: Integer, TF <: AbstractFloat}
     x::Array{TF, 1}
     resid::Array{TF, 1}
     f::TF
-    jacobian::Matrix{TF}
+    jacobian::Union{Nothing, Matrix{TF}} # jacobian is nothing if convergence is immediate
     nf::TI
     nx::TI # differs from nf if sample averaging is used
     nruns::TI # > 1 if multiple restarts
@@ -73,7 +73,7 @@ function solve(objfun, x0::Array{TF, 1};
                 nsamples = nothing,
                 user_params = nothing, # see https://numericalalgorithmsgroup.github.io/dfols/build/html/advanced.html
                 objfun_has_noise = false,
-                scaling_within_bounds = false) where {TF <: AbstractFloat, TI <: Integer}
+                scaling_within_bounds = false) where {TF <: AbstractFloat}
 ```
 
 ### Constraints and Stochastic Objectives

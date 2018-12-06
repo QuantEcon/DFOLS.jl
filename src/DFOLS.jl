@@ -11,7 +11,7 @@ struct DFOLSResults{TI <: Integer, TF <: AbstractFloat}
     x::Array{TF, 1}
     resid::Array{TF, 1}
     f::TF
-    jacobian::Union{Nothing, Matrix{TF}}
+    jacobian::Union{Nothing, Matrix{TF}} # jacobian is nothing if convergence is immediate 
     nf::TI
     nx::TI # differs from nf if sample averaging is used
     nruns::TI # > 1 if multiple restarts
