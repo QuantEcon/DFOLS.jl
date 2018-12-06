@@ -94,7 +94,7 @@ rosenbrock_noisy = x -> rosenbrock(x) .* (μ .+ σ*randn(2))
 solve(rosenbrock_noisy, x0, objfun_has_noise=true)
 ```
 
-**Note:** The solver will determine the stochasticity of the objective only by examining the `objfun_has_noise` flag, and not by examining the input.
+**Note:** The solver will determine the stochasticity of the objective only by examining the `objfun_has_noise` flag, and not by looking at the actual function supplied.
 
 ### Advanced Usage
 
