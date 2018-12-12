@@ -7,7 +7,7 @@ function __init__()
 end
 
 # Key objects
-struct DFOLSResults{TI <: Integer, TF <: AbstractFloat}
+struct DFOLSResults{TI, TF}
     x::Array{TF, 1}
     resid::Array{TF, 1}
     f::TF
