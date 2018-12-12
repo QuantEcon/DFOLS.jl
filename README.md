@@ -28,7 +28,7 @@ Simply run
 We define a type `DFOLSResults` to store the solver output.
 
 ```
-struct DFOLSResults{TI <: Integer, TF <: AbstractFloat}
+struct DFOLSResults{TI, TF}
     x::Array{TF, 1}
     resid::Array{TF, 1}
     f::TF
