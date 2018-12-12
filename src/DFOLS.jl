@@ -11,7 +11,7 @@ struct DFOLSResults{TI <: Integer, TF <: AbstractFloat}
     x::Array{TF, 1}
     resid::Array{TF, 1}
     f::TF
-    jacobian::Union{Nothing, Matrix{TF}} # jacobian is nothing if convergence is immediate 
+    jacobian::Union{Nothing, Matrix{TF}} # jacobian is nothing if convergence is immediate
     nf::TI
     nx::TI # differs from nf if sample averaging is used
     nruns::TI # > 1 if multiple restarts
@@ -53,7 +53,8 @@ function solve(objfun, x0::Array{TF, 1};
     soln[:flag] == soln[:EXIT_SUCCESS] || error(soln[:msg])
 
     # return Julia object
-    DFOLSResults(soln[:x],
+    TI = Int
+    DFOLSResults{TI, TF}(soln[:x],
                 soln[:resid],
                 soln[:f],
                 soln[:jacobian],

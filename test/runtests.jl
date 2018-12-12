@@ -64,3 +64,9 @@ end
     @test jacobian(sol) isa Nothing # Nothing part of the Union{Nothing, Matrix{TF}}
     @test converged(sol) && optimizer(sol) == [1., 100.] # general handling of the immediate resolution
 end
+
+@testset "Type Inference" begin
+    rosenbrock = x -> [10. * (x[2]-x[1]^2), 1. - x[1]]
+    @inferred solve(rosenbrock, [-1.2, 3.0], user_params = Dict("init.random_initial_directions" => false)); # will error if inference fails
+    @test 1 == 1
+end
