@@ -53,7 +53,7 @@ function solve(objfun, x0::Array{TF, 1};
     soln[:flag] == soln[:EXIT_SUCCESS] || error(soln[:msg])
 
     # return Julia object
-    TI = Int
+    TI = Int # Int64 on 64-bit systems, Int32 on ...
     DFOLSResults{TI, TF}(soln[:x],
                 soln[:resid],
                 soln[:f],
